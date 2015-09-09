@@ -1,0 +1,173 @@
+<!doctype html>
+<html>
+  <head>
+    <!-- build:css styles/vendor.css -->
+    <!-- bower:css -->
+    <!-- endbower -->
+    <!-- endbuild -->
+    <!-- build:css styles/main.css -->
+    <link href="styles/main.css" rel="stylesheet">
+    <!-- endbuild -->
+  </head>
+  <body>
+    <div class="js-pen-presets-form">
+        <div>
+            <h2>Editors</h2>
+
+            <label>Pen Title</label>
+            <input type="text" data-type="title">
+
+            <br>
+            <br>
+
+            <label>Description</label>
+            <textarea data-type="description"></textarea>
+
+            <br>
+            <br>
+
+            <label>Tags</label>
+            <input type="text" data-type="tags">
+
+            <br>
+            <br>
+
+            <label><input type="checkbox" data-type="private"> Private?</label>
+
+            <br>
+            <br>
+
+            <fieldset data-type="editors" id="editors">
+                <legend>Editors</legend>
+                <label><input type="checkbox" checked data-value="HTML"> HTML</label>
+                <label><input type="checkbox" checked data-value="CSS"> CSS</label>
+                <label><input type="checkbox" checked data-value="JS"> JS</label>
+            </fieldset>
+        </div>
+
+        <br>
+        <hr>
+        <br>
+
+        <div>
+            <h2>HTML</h2>
+
+            <label>HTML Preprocessor</label>
+            <select data-type="html_pre_processor">
+                <option></option>
+                <option data-value="slim">Slim</option>
+                <option data-value="haml">Haml</option>
+                <option data-value="markdown">Markdown</option>
+            </select>
+
+            <br>
+            <br>
+
+            <label>Add Class(es) to &lt;html&gt;</label>
+            <input type="text" data-type="html_classes">
+
+            <br>
+            <br>
+
+            <label>Stuff for &lt;head&gt;</label>
+            <textarea data-type="head"></textarea>
+
+            <br>
+            <br>
+
+            <label>Default HTML</label>
+            <textarea data-type="html"></textarea>
+        </div>
+
+        <br>
+        <hr>
+        <br>
+
+        <div>
+            <h2>CSS</h2>
+
+            <label>CSS Preprocessor</label>
+            <select data-type="css_pre_processor">
+                <option></option>
+                <option data-value="less">Less</option>
+                <option data-value="scss">SCSS</option>
+                <option data-value="sass">Sass</option>
+                <option data-value="stylus">Stylus</option>
+            </select>
+
+            <br>
+            <br>
+
+            <label>CSS Base</label>
+            <select data-type="css_starter">
+                <option></option>
+                <option data-value="normalize">Normalize</option>
+                <option data-value="reset">Reset</option>
+            </select>
+
+            <br>
+            <br>
+
+            <label>Vendor Prefixing</label>
+            <select data-type="css_prefix">
+                <option></option>
+                <option data-value="autoprefixer">Autoprefixer</option>
+                <option data-value="prefixfree">-prefix-free</option>
+            </select>
+
+            <br>
+            <br>
+
+            <label>Add External CSS</label>
+            <input type="text" data-type="css_external">
+
+            <br>
+            <br>
+
+            <label>Default CSS</label>
+            <textarea data-type="css"></textarea>
+        </div>
+
+        <br>
+        <hr>
+        <br>
+
+        <div>
+            <h2>JS</h2>
+
+            <label>JS Preprocessor</label>
+            <select data-type="js_pre_processor">
+                <option></option>
+                <option data-value="coffeescript">CoffeeScript</option>
+                <option data-value="babel">Babel</option>
+                <option data-value="livescript">LiveScript</option>
+                <option data-value="typescript">TypeScript</option>
+            </select>
+
+            <br>
+            <br>
+
+            <label>Add External JavaScript</label>
+            <input type="text" data-type="js_external">
+
+            <br>
+            <br>
+
+            <label>Default JS</label>
+            <textarea data-type="js"></textarea>
+        </div>
+    </div>
+
+    <br>
+    <hr>
+    <br>
+
+    <div>
+        <button class="js-save-data">Save data</button>
+        <button class="js-show-stored-data">Show stored data</button>
+        <button class="js-clear-stored-data">Clear stored data</button>
+    </div>
+
+    <script src="scripts/options.js"></script>
+  </body>
+</html>
