@@ -15,25 +15,12 @@
       "19": "images/icon-19.png",
       "38": "images/icon-38.png"
     },
-    "default_title": "codepen easy button"
+    "default_title": "QuickPen"
   },
   "options_ui": {
     "chrome_style": true,
     "page": "options.html"
   },
-  "content_scripts": [
-    {
-      "matches": [
-        "http://*/*",
-        "https://*/*"
-      ],
-      "js": [
-        "scripts/contentscript.js"
-      ],
-      "run_at": "document_end",
-      "all_frames": false
-    }
-  ],
   "permissions": [
     "storage"
   ],
