@@ -1,6 +1,6 @@
 {
-  "name": "codepen-easy-button",
-  "version": "0.0.0",
+  "name": "quick-pen",
+  "version": "0.0.1",
   "dependencies": {},
   "devDependencies": {
     "chai": "~3.2.0",

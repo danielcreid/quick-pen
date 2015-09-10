@@ -1,106 +1,167 @@
 // TODO:
 // - Initialize saved data and populate fields
-// - Add full list of presets
-// - Allow for multiple values for appropriate fields (external assets)
-// - Trim values
+// - Allow for multiple values for appropriate fields (external assets, tags)
+// - Trim values if/when necessary
+// - Add friendly display names for <select> options
+// - Figure out what to do with the "private" option
+
+function options() {
+    var title = ko.observable('');
+    var description = ko.observable('');
+    var tags = ko.observableArray([]);
+    //var private = ko.observable(false);
+
+    var editorsHTML = ko.observable(true);
+    var editorsCSS = ko.observable(true);
+    var editorsJS = ko.observable(true);
+
+    var html = ko.observable('');
+
+    var HTMLPreprocessors = ko.observableArray(['slim', 'haml', 'markdown']);
+    var selectedHTMLPreprocessor = ko.observable();
+
+    var css = ko.observable(''); // "html { color: red; }",
+
+    var CSSPreprocessors = ko.observableArray(['less', 'scss', 'sass', 'stylus']);
+    var selectedCSSPreprocessor = ko.observable();
+
+    var CSSBases = ko.observableArray(['normalize', 'reset']);
+    var selectedCSSBase = ko.observable();
+
+    var vendorPrefixes = ko.observableArray(['autoprefixer', 'prefixfree']);
+    var selectedVendorPrefix = ko.observable();
+
+    var js = ko.observable('');
+
+    var JSPreprocessors = ko.observableArray(['coffeescript', 'babel', 'livescript', 'typescript']);
+    var selectedJSPreprocessor = ko.observable();
+
+    var HTMLClasses = ko.observable('');
+    var head = ko.observable('<meta name="viewport" content="width=device-width, initial-scale=1">');
+    var externalCSS = ko.observable('');
+    var externalJS = ko.observable('')
 
 
-'use strict';
 
-var dataObj = {};
+    var selectedEditors = ko.computed(function() {
+        var array = [];
+        var string;
 
-var saveDataButton = document.querySelector('.js-save-data');
-var showStoredDataButton = document.querySelector('.js-show-stored-data');
-var clearStoredDataButton = document.querySelector('.js-clear-stored-data');
+        array.push(editorsHTML() | 0);
+        array.push(editorsCSS() | 0);
+        array.push(editorsJS() | 0);
 
-saveDataButton.addEventListener('click', function() {
-    getFormData();
-    saveData(dataObj);
-});
-showStoredDataButton.addEventListener('click', showStoredData);
-clearStoredDataButton.addEventListener('click', clearData);
+        string = array.join('');
 
+        return string;
+    });
 
 
-function saveData(data) {
-    chrome.storage.sync.set(data, function() {
-        console.log('Data saved.');
-        getData(function(data){
+
+    // Chrome extension helpers
+
+    function saveData(data, callback) {
+        chrome.storage.sync.set(data, callback);
+    };
+
+    function getData(callback) {
+        chrome.storage.sync.get(null, callback);
+    };
+
+    function clearData(callback) {
+        chrome.storage.sync.clear(callback);
+    };
+
+
+
+    var logSavedData = function() {
+        getData(function(data) {
             console.log(data);
         });
-    });
-};
+    };
 
-// Could add an optional "key" parameter that allows you to specify an array of keys to grab
-function getData(callback) {
-    chrome.storage.sync.get(null, callback);
-};
+    var clearSavedData = function() {
+        clearData();
 
-function showStoredData() {
-    getData(function(data) {
-        console.log(data);
-    });
-};
-
-function clearData() {
-    chrome.storage.sync.clear(function() {
-        console.log('Data cleared.');
-        getData(function(data){
+        // Log the data to make sure it's gone
+        getData(function(data) {
             console.log(data);
         });
-    });
+    };
+
+
+
+    var saveForm = function() {
+        // Data gets formatted according to CodePen's JSON data format
+        var data = {
+            title : title(),
+            description : description(),
+            //private : private(),
+            tags : tags(),
+            editors : selectedEditors(),
+            html : html(),
+            html_pre_processor : selectedHTMLPreprocessor(),
+            css : css(),
+            css_pre_processor : selectedCSSPreprocessor(),
+            css_starter : selectedCSSBase(),
+            css_prefix : selectedVendorPrefix(),
+            js : js(),
+            js_pre_processor : selectedJSPreprocessor(),
+            html_classes : HTMLClasses(),
+            head : head(),
+            css_external : externalCSS(),
+            js_external : externalJS()
+        };
+
+        saveData(data, logSavedData);
+    };
+
+
+
+    var vm = {
+        title : title,
+        description : description,
+        tags : tags,
+        //private : private,
+
+        editorsHTML : editorsHTML,
+        editorsCSS : editorsCSS,
+        editorsJS : editorsJS,
+
+        html : html,
+
+        HTMLPreprocessors : HTMLPreprocessors,
+        selectedHTMLPreprocessor : selectedHTMLPreprocessor,
+
+        css : css,
+
+        CSSPreprocessors : CSSPreprocessors,
+        selectedCSSPreprocessor : selectedCSSPreprocessor,
+
+        CSSBases : CSSBases,
+        selectedCSSBase : selectedCSSBase,
+
+        vendorPrefixes : vendorPrefixes,
+        selectedVendorPrefix : selectedVendorPrefix,
+
+        js : js,
+
+        JSPreprocessors : JSPreprocessors,
+        selectedJSPreprocessor : selectedJSPreprocessor,
+
+        HTMLClasses : HTMLClasses,
+        head : head,
+        externalCSS : externalCSS,
+        externalJS : externalJS,
+
+        selectedEditors : selectedEditors,
+
+        logSavedData : logSavedData,
+        clearSavedData : clearSavedData,
+        saveForm : saveForm
+    };
+
+    return vm;
 };
 
-
-
-function loopInputsCreateProperty(elements) {
-    for (var i = 0; i < elements.length; i++) {
-        var property_name = elements[i].getAttribute('data-type');
-        var property_value = elements[i].value;
-
-        dataObj[property_name] = property_value;
-    }
-};
-
-function loopSelectsCreateProperty(selects) {
-    for (var i = 0; i < selects.length; i++) {
-        var property_name = selects[i].getAttribute('data-type');
-
-        // Returns null if an option is not selected
-        var property_value = selects[i].options[selects[i].selectedIndex].getAttribute("data-value");
-
-        dataObj[property_name] = property_value;
-    }
-};
-
-function getEditorValues(fieldset) {
-    var property_name = fieldset.getAttribute('data-type');
-    var property_value;
-    var property_value_array = [];
-
-    for (var i = 0; i < fieldset.getElementsByTagName('input').length; i++) {
-        // bitwise OR ZERO (| 0) will convert true/false to 1/0
-        var checkedValue = fieldset.getElementsByTagName('input')[i].checked | 0;
-
-        property_value_array.push(checkedValue);
-    }
-
-    property_value = property_value_array.join('');
-
-    dataObj[property_name] = property_value;
-};
-
-function getFormData() {
-    var form = document.querySelector('.js-pen-presets-form');
-    var inputs = form.getElementsByTagName('input');
-    var textareas = form.getElementsByTagName('textarea');
-    var selects = form.getElementsByTagName('select');
-    var fieldset = document.querySelector('#editors');
-
-    loopInputsCreateProperty(inputs);
-    loopInputsCreateProperty(textareas);
-
-    loopSelectsCreateProperty(selects);
-
-    getEditorValues(fieldset);
-};
+ko.applyBindings(options);

@@ -15,33 +15,33 @@
             <h2>Editors</h2>
 
             <label>Pen Title</label>
-            <input type="text" data-type="title">
+            <input type="text" data-bind="value: title">
 
             <br>
             <br>
 
             <label>Description</label>
-            <textarea data-type="description"></textarea>
+            <textarea data-bind="value: description"></textarea>
 
             <br>
             <br>
 
             <label>Tags</label>
-            <input type="text" data-type="tags">
+            <input type="text" data-bind="value: tags">
+
+            <!--<br>
+            <br>
+
+            <label><input type="checkbox" data-bind="checked: private"> Private?</label>-->
 
             <br>
             <br>
 
-            <label><input type="checkbox" data-type="private"> Private?</label>
-
-            <br>
-            <br>
-
-            <fieldset data-type="editors" id="editors">
+            <fieldset>
                 <legend>Editors</legend>
-                <label><input type="checkbox" checked data-value="HTML"> HTML</label>
-                <label><input type="checkbox" checked data-value="CSS"> CSS</label>
-                <label><input type="checkbox" checked data-value="JS"> JS</label>
+                <label><input type="checkbox" data-bind="checked: editorsHTML"> HTML</label>
+                <label><input type="checkbox" data-bind="checked: editorsCSS"> CSS</label>
+                <label><input type="checkbox" data-bind="checked: editorsJS"> JS</label>
             </fieldset>
         </div>
 
@@ -53,30 +53,28 @@
             <h2>HTML</h2>
 
             <label>HTML Preprocessor</label>
-            <select data-type="html_pre_processor">
-                <option></option>
-                <option data-value="slim">Slim</option>
-                <option data-value="haml">Haml</option>
-                <option data-value="markdown">Markdown</option>
-            </select>
+            <select data-bind="options: HTMLPreprocessors,
+                               optionsText: ,
+                               optionsCaption: 'None',
+                               value: selectedHTMLPreprocessor"></select>
 
             <br>
             <br>
 
             <label>Add Class(es) to &lt;html&gt;</label>
-            <input type="text" data-type="html_classes">
+            <input type="text" data-bind="value: HTMLClasses">
 
             <br>
             <br>
 
             <label>Stuff for &lt;head&gt;</label>
-            <textarea data-type="head"></textarea>
+            <textarea data-bind="value: head"></textarea>
 
             <br>
             <br>
 
             <label>Default HTML</label>
-            <textarea data-type="html"></textarea>
+            <textarea data-bind="value: html"></textarea>
         </div>
 
         <br>
@@ -87,45 +85,40 @@
             <h2>CSS</h2>
 
             <label>CSS Preprocessor</label>
-            <select data-type="css_pre_processor">
-                <option></option>
-                <option data-value="less">Less</option>
-                <option data-value="scss">SCSS</option>
-                <option data-value="sass">Sass</option>
-                <option data-value="stylus">Stylus</option>
-            </select>
+            <select data-bind="options: CSSPreprocessors,
+                               optionsText: ,
+                               optionsCaption: 'None',
+                               value: selectedCSSPreprocessor"></select>
 
             <br>
             <br>
 
             <label>CSS Base</label>
-            <select data-type="css_starter">
-                <option></option>
-                <option data-value="normalize">Normalize</option>
-                <option data-value="reset">Reset</option>
-            </select>
+            <select data-bind="options: CSSBases,
+                               optionsText: ,
+                               optionsCaption: 'None',
+                               value: selectedCSSBase"></select>
 
             <br>
             <br>
 
             <label>Vendor Prefixing</label>
-            <select data-type="css_prefix">
-                <option></option>
-                <option data-value="autoprefixer">Autoprefixer</option>
-                <option data-value="prefixfree">-prefix-free</option>
-            </select>
+            <select data-bind="options: vendorPrefixes,
+                               optionsText: ,
+                               optionsCaption: 'None',
+                               value: selectedVendorPrefix"></select>
 
             <br>
             <br>
 
             <label>Add External CSS</label>
-            <input type="text" data-type="css_external">
+            <input type="text" data-bind="value: externalCSS">
 
             <br>
             <br>
 
             <label>Default CSS</label>
-            <textarea data-type="css"></textarea>
+            <textarea data-bind="value: css"></textarea>
         </div>
 
         <br>
@@ -136,25 +129,22 @@
             <h2>JS</h2>
 
             <label>JS Preprocessor</label>
-            <select data-type="js_pre_processor">
-                <option></option>
-                <option data-value="coffeescript">CoffeeScript</option>
-                <option data-value="babel">Babel</option>
-                <option data-value="livescript">LiveScript</option>
-                <option data-value="typescript">TypeScript</option>
-            </select>
+            <select data-bind="options: JSPreprocessors,
+                               optionsText: ,
+                               optionsCaption: 'None',
+                               value: selectedJSPreprocessor"></select>
 
             <br>
             <br>
 
             <label>Add External JavaScript</label>
-            <input type="text" data-type="js_external">
+            <input type="text" data-bind="value: externalJS">
 
             <br>
             <br>
 
             <label>Default JS</label>
-            <textarea data-type="js"></textarea>
+            <textarea data-bind="value: js"></textarea>
         </div>
     </div>
 
@@ -163,11 +153,12 @@
     <br>
 
     <div>
-        <button class="js-save-data">Save data</button>
-        <button class="js-show-stored-data">Show stored data</button>
-        <button class="js-clear-stored-data">Clear stored data</button>
+        <button data-bind="click: saveForm">Save form data</button>
+        <button data-bind="click: logSavedData">Log saved data</button>
+        <button data-bind="click: clearSavedData">Clear saved data</button>
     </div>
 
+    <script src="scripts/knockout-3.3.0.js"></script>
     <script src="scripts/options.js"></script>
   </body>
 </html>
