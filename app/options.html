@@ -11,6 +11,12 @@
   </head>
   <body>
     <div class="js-pen-presets-form">
+        <!--<label>Preset</label>
+        <select data-bind="options: presets,
+                           optionsText: ,
+                           value: preset"></select>
+        <br>
+        <br>-->
         <div>
             <h2>Editors</h2>
 
@@ -39,9 +45,9 @@
 
             <fieldset>
                 <legend>Editors</legend>
-                <label><input type="checkbox" data-bind="checked: editorsHTML"> HTML</label>
-                <label><input type="checkbox" data-bind="checked: editorsCSS"> CSS</label>
-                <label><input type="checkbox" data-bind="checked: editorsJS"> JS</label>
+                <label><input type="checkbox" data-bind="checked: editors_html"> HTML</label>
+                <label><input type="checkbox" data-bind="checked: editors_css"> CSS</label>
+                <label><input type="checkbox" data-bind="checked: editors_js"> JS</label>
             </fieldset>
         </div>
 
@@ -53,16 +59,16 @@
             <h2>HTML</h2>
 
             <label>HTML Preprocessor</label>
-            <select data-bind="options: HTMLPreprocessors,
+            <select data-bind="options: html_pre_processors,
                                optionsText: ,
                                optionsCaption: 'None',
-                               value: selectedHTMLPreprocessor"></select>
+                               value: html_pre_processor"></select>
 
             <br>
             <br>
 
             <label>Add Class(es) to &lt;html&gt;</label>
-            <input type="text" data-bind="value: HTMLClasses">
+            <input type="text" data-bind="value: html_classes">
 
             <br>
             <br>
@@ -85,34 +91,34 @@
             <h2>CSS</h2>
 
             <label>CSS Preprocessor</label>
-            <select data-bind="options: CSSPreprocessors,
+            <select data-bind="options: css_pre_processors,
                                optionsText: ,
                                optionsCaption: 'None',
-                               value: selectedCSSPreprocessor"></select>
+                               value: css_pre_processor"></select>
 
             <br>
             <br>
 
-            <label>CSS Base</label>
-            <select data-bind="options: CSSBases,
+            <label>CSS Starter</label>
+            <select data-bind="options: css_starters,
                                optionsText: ,
                                optionsCaption: 'None',
-                               value: selectedCSSBase"></select>
+                               value: css_starter"></select>
 
             <br>
             <br>
 
             <label>Vendor Prefixing</label>
-            <select data-bind="options: vendorPrefixes,
+            <select data-bind="options: css_prefixes,
                                optionsText: ,
                                optionsCaption: 'None',
-                               value: selectedVendorPrefix"></select>
+                               value: css_prefix"></select>
 
             <br>
             <br>
 
             <label>Add External CSS</label>
-            <input type="text" data-bind="value: externalCSS">
+            <input type="text" data-bind="value: css_external">
 
             <br>
             <br>
@@ -129,16 +135,16 @@
             <h2>JS</h2>
 
             <label>JS Preprocessor</label>
-            <select data-bind="options: JSPreprocessors,
+            <select data-bind="options: js_pre_processors,
                                optionsText: ,
                                optionsCaption: 'None',
-                               value: selectedJSPreprocessor"></select>
+                               value: js_pre_processor"></select>
 
             <br>
             <br>
 
             <label>Add External JavaScript</label>
-            <input type="text" data-bind="value: externalJS">
+            <input type="text" data-bind="value: js_external">
 
             <br>
             <br>
@@ -153,7 +159,7 @@
     <br>
 
     <div>
-        <button data-bind="click: saveForm">Save form data</button>
+        <button data-bind="click: savePreset">Save preset data</button>
         <button data-bind="click: logSavedData">Log saved data</button>
         <button data-bind="click: clearSavedData">Clear saved data</button>
     </div>
